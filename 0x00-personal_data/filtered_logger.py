@@ -13,9 +13,10 @@ def filter_datum(fields, redaction, message, separator):
     """
     returns the log message
     """
-    pat = '|'.join('{}=[^{}]*'.format(field, separator) for field in fields)
-    return re.sub(pat, lambda m: m.group().split('=')[0] + '=' + redaction,
-                  message)
+    for field in fields:
+        pat = re.sub(f'{i}=.*?{separator}', f'{i}={redaction}{separator}',
+                     message)
+    return pat
 
 
 class RedactingFormatter(logging.Formatter):
