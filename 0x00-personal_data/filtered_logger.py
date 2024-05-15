@@ -14,7 +14,8 @@ def filter_datum(fields, redaction, message, separator):
     returns the log message
     """
     pat = '|'.join('{}=[^{}]*'.format(field, separator) for field in fields)
-    return re.sub(pat, lambda m: m.group().split('=')[0] + '=' + redaction, message)
+    return re.sub(pat, lambda m: m.group().split('=')[0] + '=' + redaction,
+                  message)
 
 
 class RedactingFormatter(logging.Formatter):
@@ -52,6 +53,7 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
     return logger
 
+
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """
     connects to a secure db
@@ -64,6 +66,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                                       password=password,
                                                       host=host,
                                                       database=name_db)
+
 
 def main():
     """
