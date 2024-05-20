@@ -32,3 +32,11 @@ def unauthorized() -> str:
     unauthorized rewquests
     """
     abort(401)
+
+
+@app_views.route("/forbidden", strict_slashes=False)
+def forbidden() -> str:
+    """
+    forbidden error
+    """
+    abort(403)
