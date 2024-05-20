@@ -15,7 +15,18 @@ class Auth:
         """
         def for auth requirement
         """
-        return False
+        if path is None or excluded_paths is None or len(excluded_paths) == 0:
+            return True
+        if not path.endswith('/'):
+            path += '/'
+        for pathing in excluded_paths:
+            if pathing.endswith('*'):
+                if path.startswith(pathing[:-1]):
+                    return False
+        if path in excluded_paths:
+            return False
+        else:
+            return True
 
 
     def authorization_header(self, request=None) -> str:
