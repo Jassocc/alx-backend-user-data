@@ -28,7 +28,6 @@ class Auth:
         else:
             return True
 
-
     def authorization_header(self, request=None) -> str:
         """
         def for header
