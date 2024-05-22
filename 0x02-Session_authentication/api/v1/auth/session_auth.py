@@ -24,3 +24,14 @@ class SessionAuth(Auth):
         ses_id = str(uuid.uuid4())
         self.user_id_by_session_id[ses_id] = user_id
         return ses_id
+
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """
+        returns a user based on a session
+        """
+        if session_id is None:
+            return None
+        if not isinstance(session_id, str):
+            return None
+        res = self.user_id_by_session_id.get(session_id)
+        return res
