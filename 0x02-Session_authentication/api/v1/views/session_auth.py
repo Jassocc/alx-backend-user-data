@@ -45,9 +45,8 @@ def session_logout() -> str:
     logging out def
     """
     from api.v1.app import auth
-    session = auth.get_user_from_session_id(request.cookies.get(os.getenv(
-                                            'SESSION_NAME')))
-    if session is False:
+    destruct = auth.destroy_session(request)
+    if destruct is False:
         abort(404)
-    auth.destroy_session(request)
-    return jsonify({}), 200
+    else:
+        return jsonify({}), 200
