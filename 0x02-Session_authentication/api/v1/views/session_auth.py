@@ -9,7 +9,8 @@ import os
 from api.v1.views import app_views
 
 
-@app_views.route('/auth_session/login/', methods=['POST'], strict_slashes=False)
+@app_views.route('/auth_session/login/', methods=['POST'],
+                 strict_slashes=False)
 def session_login() -> Tuple[str, int]:
     """
     logging in for defs
@@ -23,7 +24,7 @@ def session_login() -> Tuple[str, int]:
     if not password:
         return jsonify({"error": "password missing"}), 400
     users = User.search({'email': user_email})
-    
+
     if not users:
         return jsonify({"error": "no user found for this email"}), 404
     user = users[0]
