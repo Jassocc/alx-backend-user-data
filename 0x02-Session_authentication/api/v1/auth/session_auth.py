@@ -35,3 +35,14 @@ class SessionAuth(Auth):
             return None
         res = self.user_id_by_session_id.get(session_id)
         return res
+
+    def current_user(self, request=None):
+        """
+        delete a user ses
+        """
+        cook = self.session_cookie(request)
+        if cook is None:
+            return None
+        users = self.user_id_for_session_id(cook)
+        res = User.get(users)
+        return res
