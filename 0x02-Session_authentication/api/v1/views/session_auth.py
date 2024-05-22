@@ -9,7 +9,7 @@ import os
 from api.v1.views import app_views
 
 
-@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
+@app_views.route('/api/v1/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_login() -> Tuple[str, int]:
     nowt = {"error": "no user found for this email"}
     user_email = request.form.get('email')
