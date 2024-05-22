@@ -5,6 +5,7 @@ script for task 3
 
 from typing import List, TypeVar
 from flask import Flask, request
+import os
 
 
 class Auth:
@@ -44,3 +45,13 @@ class Auth:
         def for user
         """
         return None
+
+    def session_cookie(self, request=None):
+        """
+        returns a cookie
+        """
+        if request is None:
+            return None
+        ses_name = os.getenv('SESSION_NAME')
+        res = request.cookies.get(ses_name)
+        return res
