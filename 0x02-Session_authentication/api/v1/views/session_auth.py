@@ -11,11 +11,14 @@ from api.v1.views import app_views
 
 @app_views.route('/auth_session/login/', methods=['POST'], strict_slashes=False)
 def session_login() -> Tuple[str, int]:
+    """
+    logging in for defs
+    """
     from api.v1.app import auth
     user_email = request.form.get('email')
     password = request.form.get('password')
 
-    if not user_email:
+    if user_email is None:
         return jsonify({"error": "email missing"}), 400
     if not password:
         return jsonify({"error": "password missing"}), 400
