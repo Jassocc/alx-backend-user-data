@@ -16,7 +16,7 @@ def session_login() -> Tuple[str, int]:
     if user_email is None or len(user_email.strip()) == 0:
         return jsonify({"error": "email missing"}), 400
     user_password = request.form.get('password')
-    if user_password is None or len(password.strip()) == 0:
+    if user_password is None or len(user_password.strip()) == 0:
         return jsonify({"error": "password missing"}), 400
     try:
         user = User.search({'email': user_email})
