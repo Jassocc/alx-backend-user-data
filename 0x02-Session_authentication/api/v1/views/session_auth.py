@@ -9,15 +9,15 @@ import os
 from api.v1.views import app_views
 
 
-@app_views.route('/api/v1/auth_session/login', methods=['POST'], strict_slashes=False)
+@app_views.route('/auth_session/login/', methods=['POST'], strict_slashes=False)
 def session_login() -> Tuple[str, int]:
-    nowt = {"error": "no user found for this email"}
+    nowt = { "error": "no user found for this email" }
     user_email = request.form.get('email')
     if user_email is None or len(user_email.strip()) == 0:
-        return jsonify({"error": "email missing"}), 400
+        return jsonify({ "error": "email missing" }), 400
     user_password = request.form.get('password')
     if user_password is None or len(user_password.strip()) == 0:
-        return jsonify({"error": "password missing"}), 400
+        return jsonify({ "error": "password missing" }), 400
     try:
         user = User.search({'email': user_email})
     except Exception:
@@ -31,7 +31,7 @@ def session_login() -> Tuple[str, int]:
         us.set_cookie(os.getenv('SESSION_NAME'), session_id)
         return us
 
-    return jsonify({"error": "wrong password"}), 401
+    return jsonify({ "error": "wrong password" }), 401
 
 
 @app_views.route('/auth_session/logout', methods=['DELETE'],
