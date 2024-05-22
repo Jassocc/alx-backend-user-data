@@ -46,3 +46,18 @@ class SessionAuth(Auth):
         users = self.user_id_for_session_id(cook)
         res = User.get(users)
         return res
+
+    def destroy_session(self, request=None):
+        """
+        destroys a ses
+        """
+        if request is None:
+            return False
+        ses_id = self.session_cookie(request)
+        if not ses_id:
+            return False
+        usr = self.user_id_for_session_id(ses_id)
+        if not usr:
+            return False
+        del self.user_id_by_session_id[ses_id]
+        return True
