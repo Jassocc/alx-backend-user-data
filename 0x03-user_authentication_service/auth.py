@@ -17,6 +17,7 @@ def _hash_password(password: str) -> str:
     hash_passw = bcrypt.hashpw(passw_bytes, bcrypt.gensalt())
     return hash_passw
 
+
 class Auth:
     """
     auth class for db
@@ -28,7 +29,7 @@ class Auth:
         """
         self._db = DB()
 
-    def register_user(self, email: str, password:str) -> User:
+    def register_user(self, email: str, password: str) -> User:
         """
         registers a new user
         """
