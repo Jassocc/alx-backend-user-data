@@ -50,4 +50,5 @@ class Auth:
         except Exception:
             return False
         else:
-            return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
+            return bcrypt.checkpw(password.encode('utf-8'),
+                                  user.hashed_password)
