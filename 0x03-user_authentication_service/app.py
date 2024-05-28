@@ -26,10 +26,25 @@ def registered_users():
     password = request.form.get('password')
     try:
         AUTH.register_user(email, password)
-        res = {"email": "<registered email>", "message": "user created"}
+        res = {"email": email, "message": "user created"}
         return jsonify(res), 200
     except Exception:
         return jsonify({"message": "email already registered"}), 400
+
+
+@app.route('/sessions', methods=['POST'], strict_slashes=False)
+def login():
+    """
+    login with user
+    """
+    user_email = request.form.get('email')
+    user_pwd = request.form.get('password')
+    if not AUTH.valid_login(user_email, user_pwd):
+        abort(401)
+    session_id = AUTH.create_session(user_email)
+    result = jsonify({"email": user_email, "message": "logged in"})
+    result.set_cookie('session_id', session_id)
+    return result
 
 
 if __name__ == "__main__":
