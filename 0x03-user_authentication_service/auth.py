@@ -36,8 +36,8 @@ class Auth:
         try:
             existing_user = self._db.find_user_by(email=email)
         except NoResultFound:
-            hash_pwd = _hash_password(password)
-            new_user = self._db.add_user(email, hash_pwd)
+            hashed_password = _hash_password(password)
+            new_user = self._db.add_user(email, hashed_password)
             return new_user
         else:
             raise ValueError(f"User {email} already exists")
@@ -60,12 +60,12 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            session_id = str(uuid.uuid4())
-            user.session_id = session_id
-            self._db._session.commit()
-            return session_id
         except NoResultFound:
             return None
+        else:
+            session_id = _generate_uuid()
+            self._db.update_user.(user.id, session_id=session_id)
+            return session_id
 
 
 def _generate_uuid() -> str:
