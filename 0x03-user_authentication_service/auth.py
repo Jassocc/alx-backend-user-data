@@ -53,6 +53,19 @@ class Auth:
             return bcrypt.checkpw(password.encode('utf-8'),
                                   user.hashed_password)
 
+    def create_session(self, email: str) -> str:
+        """
+        creates a new session
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            session_id = str(uuid.uuid4())
+            user.session_id = session_id
+            self._db._session.commit()
+            return session_id
+        except NoResultFound:
+            return None
+
 
 def _generate_uuid() -> str:
     """
