@@ -36,8 +36,13 @@ class DB:
         """
         adds a new user
         """
-        new_user = User(email=email, hashed_password=hashed_password)
+        new_user = None
         session = self._session
-        session.add(new_user)
-        session.commit()
+        try:
+            new_user = User(email=email, hashed_password=hashed_password)
+            session.add(new_user)
+            session.commit()
+        except Exception:
+            session.rollback()
+            new_user = None
         return new_user
