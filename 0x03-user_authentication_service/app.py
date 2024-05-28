@@ -17,5 +17,19 @@ def welcome():
     return jsonify({"message": "Bienvenue"})
 
 
+@app.route('/users', methods=['POST'], strict_slashes=False)
+def registered_users():
+    """
+    register a user
+    """
+    email = request.form.get('email')
+    password = request.form.get('password')
+    try:
+        AUTH.register_user(email, password)
+        res = {"email": "<registered email>", "message": "user created"}
+        return jsonify(res), 200
+    except Exception:
+        return jsonify({"message": "email already registered"}), 400
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
