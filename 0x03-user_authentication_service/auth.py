@@ -52,3 +52,10 @@ class Auth:
         else:
             return bcrypt.checkpw(password.encode('utf-8'),
                                   user.hashed_password)
+
+
+def _generate_uuid() -> str:
+    """
+    returns a string rep
+    """
+    return str(uuid.uuid4())
