@@ -47,7 +47,7 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-        except Exception:
+        except NoResultFound:
             return False
         else:
             return bcrypt.checkpw(password.encode('utf-8'),
