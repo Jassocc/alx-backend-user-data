@@ -25,6 +25,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
     result = requests.post(f'{URL}/sessions', response)
     assert result.status_code == 401
 
+
 def log_in(email: str, password: str) -> str:
     """
     log in user
@@ -32,6 +33,7 @@ def log_in(email: str, password: str) -> str:
     response = {"email": email, "password": password}
     result = requests.post(f'{URL}/sessions', response)
     assert result.status_code == 200
+
 
 def profile_unlogged() -> None:
     """
@@ -41,6 +43,7 @@ def profile_unlogged() -> None:
     result = requests.get(f'{URL}/profile', ses)
     assert result.status_code == 403
 
+
 def profile_logged(session_id: str) -> None:
     """
     profile in log
@@ -48,6 +51,7 @@ def profile_logged(session_id: str) -> None:
     ses = {"session_id": session_id}
     result = requests.get(f'{URL}/profile', ses)
     assert result.status_code == 200
+
 
 def log_out(session_id: str) -> None:
     """
@@ -57,6 +61,7 @@ def log_out(session_id: str) -> None:
     result = requests.delete(f'{URL}/sessions', ses)
     assert result.status_code == 204
 
+
 def reset_password_token(email: str) -> str:
     """
     pwd reset
@@ -64,6 +69,7 @@ def reset_password_token(email: str) -> str:
     eml = {"email": email}
     result = requests.post(f'{URL}/reset_password', eml)
     assert result.status_code == 200
+
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
     eml = {"email": email, "reset_token": reset_token,
